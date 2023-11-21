@@ -1,4 +1,4 @@
-package com.example.money.config;
+package com.example.money.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
