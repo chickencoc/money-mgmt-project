@@ -1,18 +1,18 @@
-package com.example.skeleton;
+package com.example.money;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-@Ignore
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = SkeletonApplication.class)
+@Disabled
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = MoneyApplication.class)
 @AutoConfigureMockMvc
 @Transactional
 public abstract class IntegrationTest {
