@@ -12,3 +12,9 @@ spring:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb;MODE=MYSQL
     username: sa
+
+jwt:
+  header: Authorization
+  secret: VGhlIHNwZWNpZmllZCBrZXkgYnl0ZSBhcnJheSBpcyAxNDQgYml0cyB3aGljaCBpcyBub3Qgc2VjdXJlIGVub3VnaCBmb3IgYW55IEpXVCBITUFDLVNIQSBhbGdvcml0aG0=
+  expiration:
+    access: 86400
