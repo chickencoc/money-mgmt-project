@@ -22,8 +22,7 @@ public class Expenditure {
     private LocalDateTime spendTime;
     private String memo;
 
-    @Builder.Default
-    private Boolean isExcepted = false;
+    private Boolean isExcepted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
@@ -33,7 +32,7 @@ public class Expenditure {
         this.amount = amount;
         this.spendTime = spendTime;
         this.memo = memo;
-        this.isExcepted = isExcepted;
+        this.isExcepted = isExcepted != true ? false : isExcepted;
         this.member = member;
     }
 }
