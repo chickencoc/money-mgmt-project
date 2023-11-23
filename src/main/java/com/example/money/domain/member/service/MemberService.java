@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private MemberRepository memberRepository;
-    private PasswordEncoder passwordEncoder;
-    private TokenProvider tokenProvider;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
 
     /**
      * 회원가입 기능입니다.

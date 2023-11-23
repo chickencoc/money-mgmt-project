@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService memberServiece;
+    private final MemberService memberService;
 
     @PostMapping("/signup")
     public ResponseEntity<MemberSignupDto.Response> signup(@RequestBody MemberSignupDto.Request request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(memberServiece.signup(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(memberService.signup(request));
     }
 
     @GetMapping("login")
     public ResponseEntity<TokenDto> login(@RequestBody MemberLoginRequestDto request) {
-        return ResponseEntity.ok(memberServiece.login(request));
+        return ResponseEntity.ok(memberService.login(request));
     }
 }
