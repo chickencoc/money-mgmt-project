@@ -47,16 +47,16 @@ public class TokenProvider {
         return createToken(member, expiry);
     }
 
-    private String createToken(Member user, Date expiry) {
+    private String createToken(Member member, Date expiry) {
         return Jwts.builder()
                 // token subject를 사용자 아이디로 저장
-                .setSubject(user.getUsername())
+                .setSubject(member.getUsername())
                 .setExpiration(expiry)
                 .setIssuedAt(new Date())
                 // claim에 권한, id 값 저장
                 .addClaims(Map.of(
                         AUTHORITIES_KEY, "",
-                        "userId", user.getId()))
+                        "memberId", member.getId()))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
