@@ -35,7 +35,7 @@ public class Category {
     /**
      * 주어진 명칭에 해당하는 새로운 카테고리를 생성합니다.
      * */
-    public static Category of(String name, Member member) {
+    public static Category customOf(String name, Member member) {
         return new Category(name, member);
     }
 
