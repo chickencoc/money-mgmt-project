@@ -1,6 +1,5 @@
 package com.example.money.domain.budget.entity;
 
-import com.example.money.domain.budgetByCategory.entity.BudgetByCategory;
 import com.example.money.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -9,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
@@ -20,7 +18,8 @@ public class Budget {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long total;
+    private int total;
+    private String name;
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -29,7 +28,9 @@ public class Budget {
     private Member member;
 
     @Builder
-    private Budget(LocalDate startDate, LocalDate endDate, Member member) {
+    private Budget(int total, String name, LocalDate startDate, LocalDate endDate, Member member) {
+        this.total = total;
+        this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.member = member;

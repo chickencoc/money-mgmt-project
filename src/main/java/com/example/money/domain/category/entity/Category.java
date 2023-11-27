@@ -44,7 +44,7 @@ public class Category {
     * */
     public static List<Category> createDefaultCategories(Member member) {
 
-        String[] names = {"식비", "생활비", "여가", "기타"};
+        String[] names = {"식비", "생활비", "여가", "교통", "기타"};
         ArrayList<String> categoryNames = new ArrayList<>(Arrays.asList(names));
 
         return categoryNames.stream()
