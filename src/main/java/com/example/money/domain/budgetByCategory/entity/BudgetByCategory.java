@@ -17,7 +17,7 @@ public class BudgetByCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long amount;
+    private int amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -28,7 +28,7 @@ public class BudgetByCategory {
     private Budget budget;
 
     @Builder
-    private BudgetByCategory(Long amount, Category category, Budget budget) {
+    private BudgetByCategory(int amount, Category category, Budget budget) {
         this.amount = amount;
         this.category = category;
         this.budget = budget;
