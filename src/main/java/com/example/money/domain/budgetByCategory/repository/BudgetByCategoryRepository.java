@@ -11,10 +11,10 @@ import java.util.List;
 public interface BudgetByCategoryRepository extends JpaRepository<BudgetByCategory, Long> {
 
     @Query(
-            "select bbc" +
-            "from BudgetByCategory bbc" +
-            "join fetch bbc.category" +
-            "join fetch bbc.budget" +
+            "select bbc " +
+            "from BudgetByCategory bbc " +
+            "join fetch bbc.category " +
+            "join fetch bbc.budget " +
             "where bbc.budget.startDate >= :startDate"
     )
     List<BudgetByCategory> findAllBudgetByCategoryInOneMonthWithCategoryAndBudget(@Param("startDate") LocalDate startDate);

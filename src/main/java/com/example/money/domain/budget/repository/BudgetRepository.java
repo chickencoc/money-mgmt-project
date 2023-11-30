@@ -8,5 +8,5 @@ import java.time.LocalDate;
 
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
-    boolean existByStartDateAndEndDateAndMemberId(LocalDate startDate, LocalDate endDate, Long memberId);
+    boolean existsByStartDateAndEndDateAndMemberId(LocalDate startDate, LocalDate endDate, Long memberId);
 }
