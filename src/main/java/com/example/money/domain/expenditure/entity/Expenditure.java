@@ -1,7 +1,7 @@
 package com.example.money.domain.expenditure.entity;
 
 import com.example.money.domain.budgetByCategory.entity.BudgetByCategory;
-import com.example.money.domain.expenditure.dto.ExpenditureUpdateDto;
+import com.example.money.domain.expenditure.dto.ExpenditureUpdateRequestDto;
 import com.example.money.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -43,7 +43,7 @@ public class Expenditure {
         this.member = member;
     }
 
-    public void update(ExpenditureUpdateDto request) {
+    public void update(ExpenditureUpdateRequestDto request) {
         this.amount = Optional.ofNullable(request.getAmount()).orElse(this.amount);
         this.usageTime = Optional.ofNullable(request.getUsageTime()).orElse(this.usageTime);
         this.memo = Optional.ofNullable(request.getMemo()).orElse(this.memo);

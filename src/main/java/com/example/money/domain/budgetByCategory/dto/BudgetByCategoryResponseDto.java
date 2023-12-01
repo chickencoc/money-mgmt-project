@@ -3,7 +3,9 @@ package com.example.money.domain.budgetByCategory.dto;
 import com.example.money.domain.budgetByCategory.entity.BudgetByCategory;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class BudgetByCategoryResponseDto {
 

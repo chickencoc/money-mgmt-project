@@ -2,7 +2,7 @@ package com.example.money.domain.member.controller;
 
 import com.example.money.domain.member.dto.MemberLoginRequestDto;
 import com.example.money.domain.member.dto.MemberSignupDto;
-import com.example.money.domain.member.dto.TokenDto;
+import com.example.money.domain.member.dto.TokenResponseDto;
 import com.example.money.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody MemberLoginRequestDto request) {
+    public ResponseEntity<TokenResponseDto> login(@RequestBody MemberLoginRequestDto request) {
         return ResponseEntity.ok(memberService.login(request));
     }
 }

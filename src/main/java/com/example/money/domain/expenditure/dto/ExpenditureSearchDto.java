@@ -2,12 +2,14 @@ package com.example.money.domain.expenditure.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
 public class ExpenditureSearchDto {
 
+    @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Response {
         private List<ExpenditureResponseDto> ExpenditureList;

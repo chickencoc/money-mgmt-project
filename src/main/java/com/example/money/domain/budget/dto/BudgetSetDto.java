@@ -1,4 +1,4 @@
-package com.example.money.domain.budget;
+package com.example.money.domain.budget.dto;
 
 import com.example.money.domain.budget.entity.Budget;
 import com.example.money.domain.budgetByCategory.dto.BudgetByCategoryResponseDto;

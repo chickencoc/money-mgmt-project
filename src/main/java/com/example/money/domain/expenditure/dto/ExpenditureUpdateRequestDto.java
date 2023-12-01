@@ -9,8 +9,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ExpenditureUpdateDto {
+public class ExpenditureUpdateRequestDto {
 
     private Long id;
     private Integer amount;
