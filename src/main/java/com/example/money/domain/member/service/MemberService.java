@@ -40,7 +40,7 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalArgumentException("Not Found Username"));
 
         // 사용자가 존재할 경우 비밀번호 일치 여부를 확인 합니다.
-        if(!passwordEncoder.matches(request.getPassword(), member.getPassword())) {
+        if(!member.matchesPassword(request, passwordEncoder)) {
             throw new IllegalArgumentException("mismatched password");
         }
 
