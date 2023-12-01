@@ -1,6 +1,6 @@
-package com.example.money.domain.budget.Controller;
+package com.example.money.domain.budget.controller;
 
-import com.example.money.domain.budget.BudgetSetDto;
+import com.example.money.domain.budget.dto.BudgetSetDto;
 import com.example.money.domain.budget.service.BudgetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

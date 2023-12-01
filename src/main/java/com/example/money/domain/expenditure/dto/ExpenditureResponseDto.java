@@ -3,9 +3,11 @@ package com.example.money.domain.expenditure.dto;
 import com.example.money.domain.expenditure.entity.Expenditure;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExpenditureResponseDto {
 

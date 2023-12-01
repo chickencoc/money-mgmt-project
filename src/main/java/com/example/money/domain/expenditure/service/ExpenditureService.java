@@ -5,7 +5,7 @@ import com.example.money.domain.budgetByCategory.repository.BudgetByCategoryRepo
 import com.example.money.domain.expenditure.dto.ExpenditureCreateRequestDto;
 import com.example.money.domain.expenditure.dto.ExpenditureResponseDto;
 import com.example.money.domain.expenditure.dto.ExpenditureSearchDto;
-import com.example.money.domain.expenditure.dto.ExpenditureUpdateDto;
+import com.example.money.domain.expenditure.dto.ExpenditureUpdateRequestDto;
 import com.example.money.domain.expenditure.entity.Expenditure;
 import com.example.money.domain.expenditure.repository.ExpenditureRepository;
 import com.example.money.domain.member.entity.Member;
@@ -53,7 +53,7 @@ public class ExpenditureService {
      * 사용자의 지출 목록을 수정합니다.
      * */
     @Transactional
-    public ExpenditureResponseDto updateExpenditure(User user, ExpenditureUpdateDto request) {
+    public ExpenditureResponseDto updateExpenditure(User user, ExpenditureUpdateRequestDto request) {
 
         Member member = checkMember(user);
 

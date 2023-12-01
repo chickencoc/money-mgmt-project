@@ -1,6 +1,6 @@
 package com.example.money.domain.budget.service;
 
-import com.example.money.domain.budget.BudgetSetDto;
+import com.example.money.domain.budget.dto.BudgetSetDto;
 import com.example.money.domain.budget.entity.Budget;
 import com.example.money.domain.budget.repository.BudgetRepository;
 import com.example.money.domain.budgetByCategory.dto.BudgetByCategoryResponseDto;
@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

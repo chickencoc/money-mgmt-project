@@ -2,7 +2,7 @@ package com.example.money.domain.member.service;
 
 import com.example.money.domain.member.dto.MemberLoginRequestDto;
 import com.example.money.domain.member.dto.MemberSignupDto;
-import com.example.money.domain.member.dto.TokenDto;
+import com.example.money.domain.member.dto.TokenResponseDto;
 import com.example.money.domain.member.entity.Member;
 import com.example.money.domain.member.repository.MemberRepository;
 import com.example.money.global.jwt.TokenProvider;
@@ -33,7 +33,7 @@ public class MemberService {
     /**
      * 로그인 기능입니다.
     * */
-    public TokenDto login(MemberLoginRequestDto request) {
+    public TokenResponseDto login(MemberLoginRequestDto request) {
 
         // 사용자의 아이디(username)으로 정보를 찾아 회원가입 했는지 확인합니다.
         Member member = memberRepository.findByUsername(request.getUsername())
@@ -45,7 +45,7 @@ public class MemberService {
         }
 
         // access token을 생성해 반환합니다.
-        return TokenDto.of(tokenProvider.generateToken(member));
+        return TokenResponseDto.of(tokenProvider.generateToken(member));
     }
 
 }

@@ -3,7 +3,7 @@ package com.example.money.domain.expenditure.controller;
 import com.example.money.domain.expenditure.dto.ExpenditureCreateRequestDto;
 import com.example.money.domain.expenditure.dto.ExpenditureResponseDto;
 import com.example.money.domain.expenditure.dto.ExpenditureSearchDto;
-import com.example.money.domain.expenditure.dto.ExpenditureUpdateDto;
+import com.example.money.domain.expenditure.dto.ExpenditureUpdateRequestDto;
 import com.example.money.domain.expenditure.service.ExpenditureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class ExpenditureController {
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<ExpenditureResponseDto> updateExpenditure(@AuthenticationPrincipal User user, ExpenditureUpdateDto request) {
+    public ResponseEntity<ExpenditureResponseDto> updateExpenditure(@AuthenticationPrincipal User user, ExpenditureUpdateRequestDto request) {
         return ResponseEntity.ok(expenditureService.updateExpenditure(user, request));
     }
 
