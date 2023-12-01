@@ -22,7 +22,7 @@ public class Expenditure {
     private Long id;
 
     private int amount;
-    private LocalDateTime spendTime;
+    private LocalDateTime usageTime;
     private String memo;
 
     private Boolean isExcepted;
@@ -34,18 +34,18 @@ public class Expenditure {
     private Member member;
 
     @Builder
-    private Expenditure(int amount, LocalDateTime spendTime, String memo, Boolean isExcepted, BudgetByCategory budgetByCategory, Member member) {
+    private Expenditure(int amount, LocalDateTime usageTime, String memo, Boolean isExcepted, BudgetByCategory budgetByCategory, Member member) {
         this.amount = amount;
-        this.spendTime = spendTime;
+        this.usageTime = usageTime;
         this.memo = memo;
-        this.isExcepted = Optional.ofNullable(isExcepted).orElse(true);
+        this.isExcepted = Optional.ofNullable(isExcepted).orElse(false);
         this.budgetByCategory = budgetByCategory;
         this.member = member;
     }
 
     public void update(ExpenditureUpdateDto request) {
         this.amount = Optional.ofNullable(request.getAmount()).orElse(this.amount);
-        this.spendTime = Optional.ofNullable(request.getSpendTime()).orElse(this.spendTime);
+        this.usageTime = Optional.ofNullable(request.getUsageTime()).orElse(this.usageTime);
         this.memo = Optional.ofNullable(request.getMemo()).orElse(this.memo);
         this.isExcepted = Optional.ofNullable(request.getIsExcepted()).orElse(this.isExcepted);
     }

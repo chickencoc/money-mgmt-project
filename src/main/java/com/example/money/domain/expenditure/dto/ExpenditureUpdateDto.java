@@ -14,7 +14,7 @@ public class ExpenditureUpdateDto {
 
     private Long id;
     private Integer amount;
-    private LocalDateTime spendTime;
+    private LocalDateTime usageTime;
     private String memo;
     private Boolean isExcepted;
     private Long categoryId;
@@ -23,7 +23,7 @@ public class ExpenditureUpdateDto {
     public Expenditure toEntity(Member member) {
         return Expenditure.builder()
                 .amount(amount)
-                .spendTime(spendTime)
+                .usageTime(usageTime)
                 .memo(memo)
                 .isExcepted(isExcepted)
                 .member(member)

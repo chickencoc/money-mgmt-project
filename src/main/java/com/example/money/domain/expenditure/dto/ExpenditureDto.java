@@ -14,7 +14,7 @@ public class ExpenditureDto {
     public static class Request {
 
         private Integer amount;
-        private LocalDateTime spendTime;
+        private LocalDateTime usageTime;
         private String memo;
         private Boolean isExcepted;
         private Long categoryId;
@@ -23,7 +23,7 @@ public class ExpenditureDto {
         public Expenditure toExpenditure(Member member) {
             return Expenditure.builder()
                     .amount(amount)
-                    .spendTime(spendTime)
+                    .usageTime(usageTime)
                     .memo(memo)
                     .isExcepted(isExcepted)
                     .member(member)
@@ -34,6 +34,7 @@ public class ExpenditureDto {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Response {
 
+        private Long id;
         private Integer amount;
         private LocalDateTime spendTime;
         private String memo;
@@ -41,8 +42,9 @@ public class ExpenditureDto {
 
         public static ExpenditureDto.Response from(Expenditure expenditure) {
             return new ExpenditureDto.Response(
+                    expenditure.getId(),
                     expenditure.getAmount(),
-                    expenditure.getSpendTime(),
+                    expenditure.getUsageTime(),
                     expenditure.getMemo(),
                     expenditure.getIsExcepted()
             );
