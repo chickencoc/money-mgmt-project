@@ -21,7 +21,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(memberService.signup(request));
     }
 
-    @GetMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody MemberLoginRequestDto request) {
         return ResponseEntity.ok(memberService.login(request));
     }
