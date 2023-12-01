@@ -10,11 +10,11 @@ public class ExpenditureSearchDto {
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Response {
-        private List<ExpenditureDto.Response> ExpenditureList;
+        private List<ExpenditureResponseDto> ExpenditureList;
         private Map<String, Integer> totalByCategory;
         private Integer totalSum;
 
-        public static Response from(List<ExpenditureDto.Response> expenditureList, Map<String, Integer> totalByCategory, Integer totalSum) {
+        public static Response from(List<ExpenditureResponseDto> expenditureList, Map<String, Integer> totalByCategory, Integer totalSum) {
             return new Response(expenditureList, totalByCategory, totalSum);
         }
     }
