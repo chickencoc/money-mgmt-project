@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface BudgetByCategoryRepository extends JpaRepository<BudgetByCategory, Long> {
 
@@ -18,4 +19,6 @@ public interface BudgetByCategoryRepository extends JpaRepository<BudgetByCatego
             "where bbc.budget.startDate >= :startDate"
     )
     List<BudgetByCategory> findAllBudgetByCategoryInOneMonthWithCategoryAndBudget(@Param("startDate") LocalDate startDate);
+
+    Optional<BudgetByCategory> findByCategoryIdAndBudgetId(Long categoryId, Long budgetId);
 }

@@ -1,6 +1,8 @@
 package com.example.money.domain.expenditure.controller;
 
-import com.example.money.domain.expenditure.dto.ExpenditureDto;
+import com.example.money.domain.expenditure.dto.ExpenditureCreateRequestDto;
+import com.example.money.domain.expenditure.dto.ExpenditureResponseDto;
+import com.example.money.domain.expenditure.dto.ExpenditureSearchDto;
 import com.example.money.domain.expenditure.dto.ExpenditureUpdateDto;
 import com.example.money.domain.expenditure.service.ExpenditureService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,19 +22,34 @@ public class ExpenditureController {
     private final ExpenditureService expenditureService;
 
     @PostMapping("/new")
-    public ResponseEntity<List<ExpenditureDto.Response>> saveExpenditures(@AuthenticationPrincipal User user, List<ExpenditureDto.Request> requestList) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(expenditureService.saveExpenditures(user, requestList));
+    public ResponseEntity<ExpenditureResponseDto> saveExpenditures(@AuthenticationPrincipal User user, ExpenditureCreateRequestDto request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(expenditureService.saveExpenditures(user, request));
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<ExpenditureDto.Response> updateExpenditure(@AuthenticationPrincipal User user, ExpenditureUpdateDto request) {
+    public ResponseEntity<ExpenditureResponseDto> updateExpenditure(@AuthenticationPrincipal User user, ExpenditureUpdateDto request) {
         return ResponseEntity.ok(expenditureService.updateExpenditure(user, request));
     }
 
-    // todo: 지출 목록 조회
+    /**
+    * @param startDate - 시작일
+    * @param endDate - 종료일
+    * @param categoryName - 카테고리 명칭
+    * @param minAmount - 최소 금액 조건
+    * @param maxAmount - 최대 금액 조건
+    * */
+    @GetMapping
+    public ResponseEntity<ExpenditureSearchDto.Response> getExpendituresByCondition(@AuthenticationPrincipal User user,
+                                                                                    @RequestParam("startDate") LocalDate startDate,
+                                                                                    @RequestParam("endDate") LocalDate endDate,
+                                                                                    @RequestParam("categoryName") String categoryName,
+                                                                                    @RequestParam("minAmount") Integer minAmount,
+                                                                                    @RequestParam("maxAmount") Integer maxAmount) {
+        return ResponseEntity.ok(expenditureService.getExpendituresByCondition(user, startDate, endDate, categoryName, minAmount, maxAmount));
+    }
 
     @GetMapping("/{expenditureId}")
-    public ResponseEntity<ExpenditureDto.Response> getExpenditureDetail(@PathVariable("expenditureId") Long expenditureId) {
+    public ResponseEntity<ExpenditureResponseDto> getExpenditureDetail(@PathVariable("expenditureId") Long expenditureId) {
         return ResponseEntity.ok(expenditureService.getExpenditureDetail(expenditureId));
     }
 
