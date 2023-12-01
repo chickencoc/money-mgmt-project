@@ -1,6 +1,9 @@
 package com.example.money.domain.expenditure.service;
 
-import com.example.money.domain.expenditure.dto.ExpenditureDto;
+import com.example.money.domain.budgetByCategory.entity.BudgetByCategory;
+import com.example.money.domain.budgetByCategory.repository.BudgetByCategoryRepository;
+import com.example.money.domain.expenditure.dto.ExpenditureCreateRequestDto;
+import com.example.money.domain.expenditure.dto.ExpenditureResponseDto;
 import com.example.money.domain.expenditure.dto.ExpenditureSearchDto;
 import com.example.money.domain.expenditure.dto.ExpenditureUpdateDto;
 import com.example.money.domain.expenditure.entity.Expenditure;
@@ -16,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 public class ExpenditureService {
 
     private MemberRepository memberRepository;
+    private BudgetByCategoryRepository budgetByCategoryRepository;
     private ExpenditureRepository expenditureRepository;
     private EntityManager entityManager;
 
@@ -34,27 +35,25 @@ public class ExpenditureService {
      * 사용자의 새로운 지출 목록을 생성합니다.
      * */
     @Transactional
-    public List<ExpenditureDto.Response> saveExpenditures(User user, List<ExpenditureDto.Request> requestList) {
+    public ExpenditureResponseDto saveExpenditures(User user, ExpenditureCreateRequestDto request) {
 
         Member member = checkMember(user);
 
-        // todo: budget, category 데이터가 존재하는지 확인합니다.
-
+        BudgetByCategory budgetByCategory = budgetByCategoryRepository.findByCategoryIdAndBudgetId(request.getCategoryId(), request.getBudgetId())
+                .orElseThrow(() -> new IllegalArgumentException("Not Found BudgetByCategory"));
 
         // request를 이용해 expenditure 객체 생성
-        List<Expenditure> expenditureList = requestList.stream().map(request -> request.toExpenditure(member)).toList();
+        Expenditure expenditure = request.toExpenditure(budgetByCategory, member);
 
         // expenditure 객체를 DB에 저장
-        return expenditureRepository.saveAll(expenditureList)
-                // expenditure를 dto로 변환하여 반환
-                .stream().map(ExpenditureDto.Response::from).toList();
+        return ExpenditureResponseDto.from(expenditureRepository.save(expenditure));
     }
 
     /**
      * 사용자의 지출 목록을 수정합니다.
      * */
     @Transactional
-    public ExpenditureDto.Response updateExpenditure(User user, ExpenditureUpdateDto request) {
+    public ExpenditureResponseDto updateExpenditure(User user, ExpenditureUpdateDto request) {
 
         Member member = checkMember(user);
 
@@ -65,7 +64,7 @@ public class ExpenditureService {
         // 지출 데이터 수정 todo: dirty check?
         expenditure.update(request);
 
-        return ExpenditureDto.Response.from(expenditure);
+        return ExpenditureResponseDto.from(expenditure);
     }
 
     /**
@@ -79,7 +78,7 @@ public class ExpenditureService {
         // -- 동적 쿼리를 위한 JPQL
 
         String jpql = "select exp from Expenditure exp where exp.member = :member"; // 특정 사용자가 조회하기 때문에 member를 기본 조건으로 설정
-        final String DATE_CONDITION = " and exp.usageTime between :startDate and :endDate"; // 검색 조건 시작일과 종료일을 조건
+        final String DATE_CONDITION = " and exp.usageTime between :startDate and :endDate"; // 조회 조건 시작일과 종료일을 조건
         final String CATEGORY_CONDITION = " and exp.budgetByCategory.category.name = :categoryName"; // 카테고리 이름으로 검색하기 위한 조건
         final String AMOUNT_CONDITION_PRIFIX = " and exp.amount";
         final String MINIMUM_AMOUNT = " >= :minAmount"; // 검색 조건의 금액 최솟값 조건
@@ -152,7 +151,7 @@ public class ExpenditureService {
 
         // Expenditure List를 ExpenditureDto List로 변환하여 ExpenditureSearchDto를 생성한 뒤 반환
         return ExpenditureSearchDto.Response.from(
-                    expenditureList.stream().map(ExpenditureDto.Response::from).toList(),
+                    expenditureList.stream().map(ExpenditureResponseDto::from).toList(),
                     categoryNameAndTotal,
                     totalSum
         );
@@ -161,13 +160,13 @@ public class ExpenditureService {
     /**
      * 하나의 지출에 대한 상세 데이터를 반환합니다.
      * */
-    public ExpenditureDto.Response getExpenditureDetail(Long expenditureId) {
+    public ExpenditureResponseDto getExpenditureDetail(Long expenditureId) {
 
         // 주어진 id 값으로 지출 데이터를 DB에서 조회
         Expenditure expenditure = expenditureRepository.findById(expenditureId)
                 .orElseThrow(() -> new IllegalArgumentException("Not Found Expenditure"));
 
-        return ExpenditureDto.Response.from(expenditure);
+        return ExpenditureResponseDto.from(expenditure);
     }
 
     /**
