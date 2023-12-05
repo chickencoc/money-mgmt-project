@@ -55,7 +55,7 @@ public class TokenProvider {
                 .setIssuedAt(new Date())
                 // claim에 권한, id 값 저장
                 .addClaims(Map.of(
-                        AUTHORITIES_KEY, "",
+                        AUTHORITIES_KEY, "ROLE_MEMBER",
                         "memberId", member.getId()))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
