@@ -1,58 +1,33 @@
-![logo](https://static.wanted.co.kr/images/events/3178/58ac3248.jpg)
+![logo](src/main/resources/img/MoneyWagon_2to1.jpg)
 
-# 프로젝트명
-프로젝트 관련 설명
+# MoneyWagon - 예산 관리 어플리케이션
+MoneyWagon은 사용자들이 개인 재무를 관리하고 지출을 추적하는 데 도움을 주는 애플리케이션입니다.  
+사용자들이 예산을 설정하고 지출을 모니터링하며 재무 계획을 성취하는 데 도움을 주는 것을 목표로 합니다.
 
 <br/>
 
 ## Table of Contents
-- [개요](#개요)
 - [Skils](#skils)
-- [Installation](#Installation)
 - [Running Tests](#running-tests)
 - [API Reference](#api-reference)
 - [프로젝트 진행 및 이슈 관리](#프로젝트-진행-및-이슈-관리)
 - [구현과정(설계 및 의도)](#구현과정(설계-및-의도))
 - [TIL 및 회고](#til-및-회고)
-- [Authors](#authors)
 - [References](#references)
 
 <br/>
 
 
-## 개요
-이 서비스가 어떠한 배경에서 발견한 문제상황을 해결하기 위해 시작되었는지 및 어떠한 방법으로 해당 문제를 해결하려 하는지 등 ... To use a badge:
-- Via Github
-    1. Press `Ctrl` + `f` on your keyboard, to bring out the search modal.
-    1. Enter the name of the badge you need.
-    1. Copy the appropriate `![Name](link)` element and paste it in your Markdown file (e.g. README.md)
-- You could also visit the live site at [ileriayo.github.io/markdown-badges/](https://ileriayo.github.io/markdown-badges/)
-
-<br/>
-
-
 ## Skils
-가상환경: ![Static Badge](https://img.shields.io/badge/Conda-green)<br/>
-언어 및 프레임워크: ![Static Badge](https://img.shields.io/badge/JAVA-17-green) ![Static Badge](https://img.shields.io/badge/Spring_boot-REST-green)<br/>
-데이터 베이스: ![Static Badge](https://img.shields.io/badge/Postgresql-9.2.4-blue) <br/>
-배포 : ![Static Badge](https://img.shields.io/badge/Docker-039BC6) ![Static Badge](https://img.shields.io/badge/AWS-EC2-orange) ![Static Badge](https://img.shields.io/badge/Github-Actions-black)  <br/> ETC : ![Static Badge](https://img.shields.io/badge/Celery-black) ![Static Badge](https://img.shields.io/badge/Redis-red)
-
-<br/>
-
-
-## Installation
-
-Install my-project with npm
-
-```bash
-  # Package 설치
-  npm install my-project
-  cd my-project
-  
-  # 초기 설정 : 데이터 및  스케쥴러 실행
-  npm install my-project
-  cd my-project
-```
+<div align="center">
+  <img src="https://img.shields.io/badge/JAVA-17-orange" alt="Static Badge" />
+  <img src="https://img.shields.io/badge/Spring_boot-3.0.12-green" alt="Static Badge" />
+  <img src="https://img.shields.io/badge/H2_Database-2.2.224-blue" alt="Static Badge" />
+  <br />
+  <img src="https://img.shields.io/badge/Spring_Data_JPA--green" alt="Static Badge" />
+  <img src="https://img.shields.io/badge/Json_Web_Token--black" alt="Static Badge" />
+  <img src="https://img.shields.io/badge/Swagger--greeny" alt="Static Badge" />
+</div>
 
 <br/>
 
@@ -229,15 +204,6 @@ To run tests, run the following command
 
 - [Django ORM 조회 시 발생하는 00 버그 발생](#google.com)
 - [00 서비스 개발 회고록](#google.com)
-
-<br/>
-
-
-## Authors
-
-- [@user1](https://www.github.com/2)
-- [@user2](https://www.github.com/2)
-- [@user3](https://www.github.com/2)
 
 <br/>
 
