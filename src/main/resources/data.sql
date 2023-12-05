@@ -30,11 +30,11 @@ insert into budget_by_category(id, amount, budget_id, category_id) values(2, 125
 insert into budget_by_category(id, amount, budget_id, category_id) values(3, 125000, 1, 3)
 insert into budget_by_category(id, amount, budget_id, category_id) values(4, 50000, 1, 4)
         -- 11월;
-insert into budget_by_category(id, amount, budget_id, category_id) values(10, 250000, 1, 1)
-insert into budget_by_category(id, amount, budget_id, category_id) values(11, 250000, 1, 2)
-insert into budget_by_category(id, amount, budget_id, category_id) values(12, 250000, 1, 3)
-insert into budget_by_category(id, amount, budget_id, category_id) values(13, 50000, 1, 4)
-insert into budget_by_category(id, amount, budget_id, category_id) values(14, 200000, 1, 5)
+insert into budget_by_category(id, amount, budget_id, category_id) values(10, 250000, 3, 1)
+insert into budget_by_category(id, amount, budget_id, category_id) values(11, 250000, 3, 2)
+insert into budget_by_category(id, amount, budget_id, category_id) values(12, 250000, 3, 3)
+insert into budget_by_category(id, amount, budget_id, category_id) values(13, 50000, 3, 4)
+insert into budget_by_category(id, amount, budget_id, category_id) values(14, 200000, 3, 5)
     -- member2; 10월;
 insert into budget_by_category(id, amount, budget_id, category_id) values(5, 250000, 2, 6)
 insert into budget_by_category(id, amount, budget_id, category_id) values(6, 250000, 2, 7)
