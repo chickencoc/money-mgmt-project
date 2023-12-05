@@ -1,5 +1,7 @@
 package com.example.money.domain.member.service;
 
+import com.example.money.domain.category.entity.Category;
+import com.example.money.domain.category.repository.CategoryRepository;
 import com.example.money.domain.member.dto.MemberLoginRequestDto;
 import com.example.money.domain.member.dto.MemberSignupDto;
 import com.example.money.domain.member.dto.TokenResponseDto;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final CategoryRepository categoryRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
@@ -23,10 +26,17 @@ public class MemberService {
      * */
     public MemberSignupDto.Response signup(MemberSignupDto.Request request) {
 
-        // 전달 받은 request 데이터를 이용하여 member 객체를 생성하고 DB에 저장합니다.
+        // 아이디 중복 확인
+        if(memberRepository.existsByUsername(request.getUsername()))
+            throw new IllegalArgumentException("Already Exist");
+
+        // 전달 받은 request 데이터를 이용하여 member 객체를 생성 후 DB에 저장
         Member member = memberRepository.save(request.toEntity(passwordEncoder));
 
-        // member 객체로 Response 객체를 생성하여 반환합니다.
+        // 사용자의 기본 카테고리 생성 및 DB에 저장
+        categoryRepository.saveAll(Category.createDefaultCategories(member));
+
+        // member 객체로 Response 객체를 생성 및 반환
         return MemberSignupDto.Response.from(member);
     }
 
@@ -35,16 +45,16 @@ public class MemberService {
     * */
     public TokenResponseDto login(MemberLoginRequestDto request) {
 
-        // 사용자의 아이디(username)으로 정보를 찾아 회원가입 했는지 확인합니다.
+        // username(아이디)로 사용자의 회원가입 여부 확인
         Member member = memberRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Not Found Username"));
 
-        // 사용자가 존재할 경우 비밀번호 일치 여부를 확인 합니다.
+        // 비밀번호 일치 여부를 확인
         if(!member.matchesPassword(request, passwordEncoder)) {
             throw new IllegalArgumentException("mismatched password");
         }
 
-        // access token을 생성해 반환합니다.
+        // access token 생성 및 반환
         return TokenResponseDto.of(tokenProvider.generateToken(member));
     }
 
