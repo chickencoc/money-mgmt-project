@@ -18,14 +18,4 @@ public class ExpenditureUpdateRequestDto {
     private Boolean isExcepted;
     private Long categoryId;
     private Long budgetId;
-
-    public Expenditure toEntity(Member member) {
-        return Expenditure.builder()
-                .amount(amount)
-                .usageTime(usageTime)
-                .memo(memo)
-                .isExcepted(isExcepted)
-                .member(member)
-                .build();
-    }
 }

@@ -38,7 +38,7 @@ public class ExpenditureController {
     * @param minAmount - 최소 금액 조건
     * @param maxAmount - 최대 금액 조건
     * */
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<ExpenditureSearchDto.Response> getExpendituresByCondition(@AuthenticationPrincipal User user,
                                                                                     @RequestParam("startDate") LocalDate startDate,
                                                                                     @RequestParam("endDate") LocalDate endDate,
@@ -55,6 +55,7 @@ public class ExpenditureController {
 
     @DeleteMapping("/{expenditureId}")
     public ResponseEntity<Void> deleteExpenditure(@PathVariable("expenditureId") Long expenditureId) {
+        expenditureService.deleteExpenditure(expenditureId);
         return ResponseEntity.noContent().build();
     }
 }
