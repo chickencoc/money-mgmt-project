@@ -19,17 +19,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ExpenditureService {
 
-    private MemberRepository memberRepository;
-    private BudgetByCategoryRepository budgetByCategoryRepository;
-    private ExpenditureRepository expenditureRepository;
-    private EntityManager entityManager;
+    private final MemberRepository memberRepository;
+    private final BudgetByCategoryRepository budgetByCategoryRepository;
+    private final ExpenditureRepository expenditureRepository;
+    private final EntityManager entityManager;
 
     /**
      * 사용자의 새로운 지출 목록을 생성합니다.
