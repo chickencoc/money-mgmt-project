@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,12 +23,12 @@ public class ExpenditureController {
     private final ExpenditureService expenditureService;
 
     @PostMapping("/new")
-    public ResponseEntity<ExpenditureResponseDto> saveExpenditures(@AuthenticationPrincipal User user, ExpenditureCreateRequestDto request) {
+    public ResponseEntity<ExpenditureResponseDto> saveExpenditures(@AuthenticationPrincipal User user, @RequestBody ExpenditureCreateRequestDto request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(expenditureService.saveExpenditures(user, request));
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<ExpenditureResponseDto> updateExpenditure(@AuthenticationPrincipal User user, ExpenditureUpdateRequestDto request) {
+    public ResponseEntity<ExpenditureResponseDto> updateExpenditure(@AuthenticationPrincipal User user, @RequestBody ExpenditureUpdateRequestDto request) {
         return ResponseEntity.ok(expenditureService.updateExpenditure(user, request));
     }
 
@@ -40,11 +41,11 @@ public class ExpenditureController {
     * */
     @GetMapping("/list")
     public ResponseEntity<ExpenditureSearchDto.Response> getExpendituresByCondition(@AuthenticationPrincipal User user,
-                                                                                    @RequestParam("startDate") LocalDate startDate,
-                                                                                    @RequestParam("endDate") LocalDate endDate,
-                                                                                    @RequestParam("categoryName") String categoryName,
-                                                                                    @RequestParam("minAmount") Integer minAmount,
-                                                                                    @RequestParam("maxAmount") Integer maxAmount) {
+                                                                                    @RequestParam(value = "startDate", required = false) LocalDate startDate,
+                                                                                    @RequestParam(value = "endDate", required = false) LocalDate endDate,
+                                                                                    @RequestParam(value = "categoryName", required = false) String categoryName,
+                                                                                    @RequestParam(value = "minAmount", required = false) Integer minAmount,
+                                                                                    @RequestParam(value = "maxAmount", required = false) Integer maxAmount) {
         return ResponseEntity.ok(expenditureService.getExpendituresByCondition(user, startDate, endDate, categoryName, minAmount, maxAmount));
     }
 
