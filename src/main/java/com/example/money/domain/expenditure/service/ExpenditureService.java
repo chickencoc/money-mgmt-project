@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,9 @@ public class ExpenditureService {
 
         BudgetByCategory budgetByCategory = budgetByCategoryRepository.findByCategoryIdAndBudgetId(request.getCategoryId(), request.getBudgetId())
                 .orElseThrow(() -> new IllegalArgumentException("Not Found BudgetByCategory"));
+
+        if(!budgetByCategory.getBudget().getMember().equals(member)) // todo: N + 1
+            throw new IllegalArgumentException("");
 
         // request를 이용해 expenditure 객체 생성
         Expenditure expenditure = request.toExpenditure(budgetByCategory, member);
@@ -80,7 +84,10 @@ public class ExpenditureService {
 
         // -- 동적 쿼리를 위한 JPQL
 
-        String jpql = "select exp from Expenditure exp where exp.member = :member"; // 특정 사용자가 조회하기 때문에 member를 기본 조건으로 설정
+        String jpql = "select exp from Expenditure exp" +
+                " join fetch exp.budgetByCategory" + // todo: 다른 방법 생각해보기
+                " join fetch exp.budgetByCategory.category" +
+                " where exp.member = :member"; // 특정 사용자가 조회하기 때문에 member를 기본 조건으로 설정
         final String DATE_CONDITION = " and exp.usageTime between :startDate and :endDate"; // 조회 조건 시작일과 종료일을 조건
         final String CATEGORY_CONDITION = " and exp.budgetByCategory.category.name = :categoryName"; // 카테고리 이름으로 검색하기 위한 조건
         final String AMOUNT_CONDITION_PRIFIX = " and exp.amount";
@@ -97,12 +104,15 @@ public class ExpenditureService {
             LocalDate today = LocalDate.now();
             LocalDate pastWeek = today.minusWeeks(1L).plusDays(1L);
 
-            parameters.put("startDate", pastWeek);
-            parameters.put("endDate", today);
+            // 시작일과 종료일의 parameter를 LocalDateTime에 맞게 00시와 23시로 전달
+            // 시작일은 일주일 전의 00시 00분 00초
+            parameters.put("startDate", pastWeek.atStartOfDay());
+            // 종료일은 오늘 날짜의 23시 59분 59초
+            parameters.put("endDate", today.atTime(LocalTime.MAX));
         } else {
             // 시작일과 종료일이 있을 경우, 해당 값을 조건으로 적용
-            parameters.put("startDate", startDate);
-            parameters.put("endDate", endDate);
+            parameters.put("startDate", startDate.atStartOfDay());
+            parameters.put("endDate", endDate.atTime(LocalTime.MAX));
         }
 
         // 카테고리 이름 값이 있을 경우, 조건 추가

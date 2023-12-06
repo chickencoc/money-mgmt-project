@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExpenditureResponseDto {
 
+    // todo: category와 budget을 확인할 수 없음
     private Long id;
     private Integer amount;
     private LocalDateTime usageTime;
